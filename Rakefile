@@ -22,11 +22,11 @@ rescue
 end
 
 jt = Jeweler::Tasks.new do |gem|
-  gem.name = "ngmoco-cache-money"
+  gem.name = "sreeix-cache-money"
   gem.summary = "Write-through and Read-through Cacheing for ActiveRecord"
   gem.description = "Write-through and Read-through Cacheing for ActiveRecord"
   gem.email = "teamplatform@ngmoco.com"
-  gem.homepage = "http://github.com/ngmoco/cache-money"
+  gem.homepage = "http://github.com/sreeix/cache-money"
   gem.authors = ["Nick Kallen","Ashley Martens","Scott Mace","John O'Neill"]
   gem.has_rdoc = false
   gem.files    = FileList[
@@ -74,6 +74,6 @@ task :publish => [ :spec, :build ] do
   system "git tag v#{jt.jeweler.version}"
   system "git push origin v#{jt.jeweler.version}"
   system "git push origin master"
-  system "gem push pkg/ngmoco-cache-money-#{jt.jeweler.version}.gem"
+  system "gem push pkg/sreeix-cache-money-#{jt.jeweler.version}.gem"
   system "git clean -fd"
 end
