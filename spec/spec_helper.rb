@@ -2,16 +2,15 @@ dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift "#{dir}/../lib"
 
 require File.join(dir, '../config/environment')
-require 'spec'
 require 'pp'
 require 'cache_money'
-#require 'memcache'
-require 'memcached'
+require 'memcache'
+# require 'memcached'
 require 'memcached_wrapper'
-
-Spec::Runner.configure do |config|
+require File.expand_path(File.join(File.dirname(__FILE__), "cash/shared.rb"))
+RSpec.configure do |config|
   config.mock_with :rr
-  config.before :suite do
+  config.before :all do
     load File.join(dir, "../db/schema.rb")
 
     config = YAML.load(IO.read((File.expand_path(File.dirname(__FILE__) + "/../config/memcached.yml"))))['test']
@@ -25,7 +24,7 @@ Spec::Runner.configure do |config|
     Character.delete_all
   end
 
-  config.before :suite do
+  config.before :all do
     ActiveRecord::Base.class_eval do
       is_cached :repository => Cash::Transactional.new($memcache, $lock)
     end

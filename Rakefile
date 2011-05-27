@@ -13,8 +13,10 @@ end
 begin
   require 'rake/testtask'
   require 'rake/rdoctask'
-  require 'spec/rake/spectask'
-rescue MissingSourceFile
+  require 'rspec/core/rake_task'
+rescue 
+  puts $!.backtrace
+  puts $!.inspect
   STDERR.puts "Error, could not load rake/rspec tasks! (#{$!})\n\nDid you run `bundle install`?\n\n"
   exit 1
 end
@@ -45,15 +47,15 @@ jt = Jeweler::Tasks.new do |gem|
 end
 Jeweler::GemcutterTasks.new
 
-Spec::Rake::SpecTask.new do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
-  t.spec_opts = ['--format', 'profile', '--color']
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
+  # Put spec opts in a file named .rspec in root
 end
-
-Spec::Rake::SpecTask.new(:coverage) do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
+desc "Generate code coverage"
+RSpec::Core::RakeTask.new(:coverage) do |t|
+  t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
   t.rcov = true
-  t.rcov_opts = ['-x', 'spec,gems']
+  t.rcov_opts = ['--exclude', 'spec,gems']
 end
 
 desc "Default task is to run specs"

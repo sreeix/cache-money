@@ -2,45 +2,11 @@ require "spec_helper"
 
 module Cash
   describe 'Ordering' do
-    before :suite do
+    before :all do
       FairyTale = Class.new(Story)
     end
 
     describe '#create!' do
-      describe 'the records are written-through in sorted order', :shared => true do
-        describe 'when there are not already records matching the index' do
-          it 'initializes the index' do
-            fairy_tale = FairyTale.create!(:title => 'title')
-            FairyTale.get("title/#{fairy_tale.title}").should == [fairy_tale.id]
-          end
-        end
-
-        describe 'when there are already records matching the index' do
-          before do
-            @fairy_tale1 = FairyTale.create!(:title => 'title')
-            FairyTale.get("title/#{@fairy_tale1.title}").should == sorted_and_serialized_records(@fairy_tale1)
-          end
-
-          describe 'when the index is populated' do
-            it 'appends to the index' do
-              fairy_tale2 = FairyTale.create!(:title => @fairy_tale1.title)
-              FairyTale.get("title/#{@fairy_tale1.title}").should == sorted_and_serialized_records(@fairy_tale1, fairy_tale2)
-            end
-          end
-
-          describe 'when the index is not populated' do
-            before do
-              $memcache.flush_all
-            end
-
-            it 'initializes the index' do
-              fairy_tale2 = FairyTale.create!(:title => @fairy_tale1.title)
-              FairyTale.get("title/#{@fairy_tale1.title}").should == sorted_and_serialized_records(@fairy_tale1, fairy_tale2)
-            end
-          end
-        end
-      end
-
       describe 'when the order is ascending' do
         it_should_behave_like 'the records are written-through in sorted order'
 

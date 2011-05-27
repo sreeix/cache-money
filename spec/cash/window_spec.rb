@@ -4,7 +4,7 @@ module Cash
   describe 'Windows' do
     LIMIT, BUFFER = 5, 2
 
-    before :suite do
+    before :all do
       Fable = Class.new(Story)
       Fable.index :title, :limit => LIMIT, :buffer => BUFFER
     end
