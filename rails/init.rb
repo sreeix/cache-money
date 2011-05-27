@@ -11,9 +11,9 @@ if memcache_config
       when "Array"; memcache_config[:servers]
     end
   Rails.logger.info '$memcache enabled.'
+  $memcache = MemcachedWrapper.new(memcache_servers, memcache_config)
 end
   
-$memcache = MemcachedWrapper.new(memcache_servers, memcache_config)
 
 if defined?(DISABLE_CACHE_MONEY) || ENV['DISABLE_CACHE_MONEY'] == 'true' || memcache_config.nil? || memcache_config[:cache_money] != true
   Rails.logger.info 'cache-money disabled'
