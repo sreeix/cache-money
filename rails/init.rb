@@ -1,3 +1,6 @@
+require 'dalli'
+require 'dalli/memcache-client'
+
 yml = YAML.load(IO.read(File.join(RAILS_ROOT, "config", "memcached.yml")))
 memcache_config = yml[RAILS_ENV]
 
