@@ -1,5 +1,5 @@
 require 'dalli'
-require 'dalli/memcache-client'
+# require 'dalli/memcache-client'
 
 
 class MemcachedWrapper < Dalli::Client

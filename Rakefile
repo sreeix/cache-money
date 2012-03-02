@@ -70,7 +70,7 @@ end
 
 
 desc "Push a new version to Gemcutter"
-task :publish => [ :spec, :build ] do
+task :publish => [:build ] do
   system "git tag v#{jt.jeweler.version}"
   system "git push origin v#{jt.jeweler.version}"
   system "git push origin master"
