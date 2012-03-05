@@ -23,6 +23,11 @@ if defined?(DISABLE_CACHE_MONEY) || ENV['DISABLE_CACHE_MONEY'] == 'true' || memc
   class ActiveRecord::Base
     def self.index(*args)
     end
+    def self.is_cached(args={})
+      # noop
+    end
+    include NoCash
+    
   end
 else
   Rails.logger.info 'cache-money enabled'
