@@ -8,7 +8,7 @@ class MemcachedWrapper < Dalli::Client
   end
 
   def set(key, value, expire = @default_ttl, raw = false)
-    $memcache.set(key, value, expire, :raw => raw) if active?
+    super(key, value, expire, :raw => raw)
   end
 
 end
